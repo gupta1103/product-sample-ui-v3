@@ -19,7 +19,7 @@ class APIService: NSObject {
                     let result = try JSONDecoder().decode(ProductModel.self, from: data)
                     DispatchQueue.main.async {
                         completion(result)
-                        print(result)
+//                         print(result)
                     }
                 }
                 catch{
