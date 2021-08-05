@@ -10,15 +10,9 @@ import Foundation
 class ProductListViewModel: NSObject {
     
     private var productListArray = [Products]()
-    private var productCellViewModel = [ProductCellViewModel]()
+//     private var productCellViewModel = [ProductCellViewModel]()
     private var apiService = APIService()
     
-    func apiCall(completion: @escaping() -> Void) {
-        apiService.fetchProductDetails { result in
-            self.productListArray = result?.data?.products ?? []
-//            print(self.productListArray)
-        }
-    }
 }
 
 extension ProductListViewModel {
@@ -27,8 +21,20 @@ extension ProductListViewModel {
         return productListArray.count
     }
     
-    func getCellModel(at indexPath: IndexPath) -> ProductCellViewModel {
-        return productCellViewModel[indexPath.row]
+    func getCellModel(indexPath: IndexPath) -> ProductCellViewModel {
+        return ProductCellViewModel(with: productListArray[indexPath.row])
+    }
+    
+    func updateProducts(with productModel: ProductModel?) {
+        guard let productModel = productModel else { return }
+        productListArray = productModel.data?.products ?? []
+    }
+    
+    func apiCall(completion: @escaping() -> Void) {
+        apiService.fetchProductDetails { (result) in
+            self.updateProducts(with: result)
+            completion()
+        }
     }
     
 }
