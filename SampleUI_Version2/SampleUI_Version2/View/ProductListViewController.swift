@@ -61,7 +61,7 @@ extension ProductListViewController: UITableViewDelegate, UITableViewDataSource{
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: ProductCell.self)) as! ProductCell
-        cell.configure(with: productViewModel.getCellModelAtIndexPath(indexPath: [indexPath.row]))
+        cell.configure(with: productViewModel.getCellModel(indexPath: indexPath))
         return cell
     }
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
